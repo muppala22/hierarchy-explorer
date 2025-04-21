@@ -1,59 +1,51 @@
-# HierarchyExplorer
+# Hierarchy Explorer 🌐
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
+A powerful Angular app that allows users to explore, search, and manage deeply nested hierarchical data — inspired by tools used in enterprise-level applications.
 
-## Development server
+## ✨ Features
 
-To start a local development server, run:
+- 🧭 Expand/Collapse nested entities in real-time
+- 🔍 Search by EAN (or any property)
+- 🏷️ Visual icons for different node types (Global, Country, Facility, etc.)
+- 📁 Recursive rendering using Angular components
+- 🔁 Expand All / Collapse All / Refresh controls
+- 🌗 Responsive & clean UI with potential for dark mode
+
+## 🧠 Built With
+
+- [Angular](https://angular.io/)
+- TypeScript
+- SCSS
+- (Optional) Angular Material or TailwindCSS
+
+## 📚 Project Structure
+
+src/ ├── app/ │ ├── components/ │ │ ├── hierarchy-view/ │ │ └── hierarchy-node/ <-- recursive component │ ├── models/ │ │ └── hierarchy.model.ts │ ├── services/ │ │ └── hierarchy.service.ts (optional for backend) │ └── app.component.ts └── assets/
+
+## License
+
+MIT
+
+## 🛠 Setup
 
 ```bash
+git clone https://github.com/yourusername/hierarchy-explorer.git
+cd hierarchy-explorer
+npm install
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+### 🚀 Project Roadmap
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+| Phase | Feature | Status |
+|-------|---------|--------|
+| 1 | Basic hierarchy tree with mock data | ✅ |
+| 2 | Expand/collapse + recursive rendering | ✅ |
+| 3 | Expand All / Collapse All / Refresh buttons | ✅ |
+| 4 | Search by EAN / deep filtering | ✅ |
+| 5 | Clean UI with icons per level | ✅ |
+| 6 | Add backend/API or localStorage | 🔜 |
+| 7 | Drag-and-drop reordering | 🔜 |
+| 8 | Node editing & saving | 🔜 |
+| 9 | Responsive design & animations | 🔜 |
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
