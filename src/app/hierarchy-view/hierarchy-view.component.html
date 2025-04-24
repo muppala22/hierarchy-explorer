@@ -1,1 +1,19 @@
-<p>hierarchy-view works!</p>
+<div class="toolbar">
+  <button (click)="expandAll(hierarchy)">Expand All</button>
+  <button (click)="collapseAll(hierarchy)">Collapse</button>
+  <button (click)="refresh()">Refresh</button>
+
+  <input
+    type="text"
+    [(ngModel)]="searchEAN"
+    placeholder="Search EAN"
+    class="search"
+  />
+</div>
+
+<div class="tree-view">
+  <app-hierarchy-node
+    *ngFor="let node of filteredHierarchy()"
+    [node]="node"
+  ></app-hierarchy-node>
+</div>
