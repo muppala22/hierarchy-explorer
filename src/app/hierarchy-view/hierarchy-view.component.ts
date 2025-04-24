@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { HierarchyNode } from '../models/hierarchy-model.module';
 import { FormsModule } from '@angular/forms';
-import {NgForOf} from '@angular/common';
+import {CommonModule, NgForOf} from '@angular/common';
 import {HierarchyNodeComponent} from '../hierarchy-node/hierarchy-node.component';
 
 @Component({
   selector: 'app-hierarchy-view',
   templateUrl: './hierarchy-view.component.html',
   imports: [
+    CommonModule,
     FormsModule,
     NgForOf,
     HierarchyNodeComponent
