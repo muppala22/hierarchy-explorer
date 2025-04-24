@@ -6,6 +6,7 @@ import {HierarchyNodeComponent} from '../hierarchy-node/hierarchy-node.component
 
 @Component({
   selector: 'app-hierarchy-view',
+  standalone: true,
   templateUrl: './hierarchy-view.component.html',
   imports: [
     CommonModule,
@@ -16,6 +17,8 @@ import {HierarchyNodeComponent} from '../hierarchy-node/hierarchy-node.component
   styleUrls: ['./hierarchy-view.component.scss']
 })
 export class HierarchyViewComponent {
+  searchEAN = '';
+
   hierarchy: HierarchyNode[] = [
     {
       id: '1',
@@ -46,4 +49,23 @@ export class HierarchyViewComponent {
       ]
     }
   ];
+
+  filteredHierarchy(): HierarchyNode[] {
+    if(!this.searchEAN) return this.hierarchy;
+
+    const search = this.searchEAN.toLowerCase();
+    return this.hierarchy.filter(node => this.filterRecursive(node, search))
+
+  }
+
+  private filterRecursive(node: HierarchyNode, search:string) : boolean {
+  const match = node.label.toLowerCase().includes(search);
+  const filteredChildren = node.children?.filter(child => this.filterRecursive(child, search)) ?? [];
+
+    if(filteredChildren.length >0) {
+      node.children = filteredChildren;
+      return true;
+    }
+    return match;
+  }
 }
