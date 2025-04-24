@@ -50,6 +50,8 @@ export class HierarchyViewComponent {
     }
   ];
 
+  originalHierarchy: HierarchyNode[] = JSON.parse(JSON.stringify(this.hierarchy));
+
   filteredHierarchy(): HierarchyNode[] {
     if(!this.searchEAN) return this.hierarchy;
 
@@ -59,7 +61,7 @@ export class HierarchyViewComponent {
   }
 
   private filterRecursive(node: HierarchyNode, search:string) : boolean {
-  const match = node.label.toLowerCase().includes(search);
+    const match = node.label.toLowerCase().includes(search);
   const filteredChildren = node.children?.filter(child => this.filterRecursive(child, search)) ?? [];
 
     if(filteredChildren.length >0) {
@@ -67,5 +69,27 @@ export class HierarchyViewComponent {
       return true;
     }
     return match;
+  }
+
+  refresh():void {
+    this.hierarchy = JSON.parse(JSON.stringify(this.originalHierarchy));
+    this.searchEAN = '';
+  }
+
+  expandAll(hierarchy: HierarchyNode[]):void {
+    this.toggleAll(this.hierarchy, true);
+  }
+  collapseAll(hierarchy: HierarchyNode[]):void {
+    this.toggleAll(this.hierarchy, false);
+  }
+
+  toggleAll(nodes: HierarchyNode[], expanded:boolean):void {
+    for(const node of this.hierarchy) {
+      node.expanded = expanded;
+      if(node.children?.length){
+        this.toggleAll(node.children, expanded);
+      }
+    }
+
   }
 }
