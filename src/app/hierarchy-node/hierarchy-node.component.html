@@ -1,16 +1,18 @@
-<div class="node" [class.expanded]="node.expanded">
-  <div class="node-label" (click)="toggle()">
-    <span class="toggle-icon">
-      {{ node.children?.length ? (node.expanded ? '▼' : '▶') : '•' }}
-    </span>
-    <span class="type-icon">{{ node.type }}</span>
-    {{ node.label }}
-  </div>
-
-  <div class="children" *ngIf="node.expanded">
-    <app-hierarchy-node
-      *ngFor="let child of node.children"
-      [node]="child"
-    ></app-hierarchy-node>
-  </div>
+<div class="node-content" [attr.data-type]="node.type">
+  @if (node.children?.length) {
+    <button class="toggle-btn" (click)="toggle()">
+      {{node.expanded ? '−' : '+'}}
+    </button>
+  } @else {
+    <span style="width: 24px"></span>
+  }
+  <span class="node-label">{{node.label}}</span>
 </div>
+
+@if (node.children?.length && node.expanded) {
+  <div class="node-children">
+    @for (child of node.children; track child.id) {
+      <app-hierarchy-node [node]="child"></app-hierarchy-node>
+    }
+  </div>
+}

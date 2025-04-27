@@ -1,0 +1,62 @@
+.hierarchy-container {
+  padding: 20px;
+  max-width: 100%;
+  overflow-x: hidden;
+
+  .controls {
+    margin-bottom: 20px;
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-color: #2b6cb0;
+        box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.1);
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+
+      .control-button {
+        padding: 8px 16px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #4a5568;
+        transition: all 0.2s;
+
+        &:hover {
+          background-color: #f8f9fa;
+          border-color: #cbd5e0;
+        }
+
+        &:active {
+          background-color: #edf2f7;
+        }
+      }
+    }
+  }
+
+  .hierarchy-tree {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+}

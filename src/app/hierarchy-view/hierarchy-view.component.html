@@ -1,19 +1,21 @@
-<div class="toolbar">
-  <button (click)="expandAll(hierarchy)">Expand All</button>
-  <button (click)="collapseAll(hierarchy)">Collapse</button>
-  <button (click)="refresh()">Refresh</button>
+<div class="hierarchy-container">
+  <div class="controls">
+    <button (click)="expandAll()">Expand All</button>
+    <button (click)="collapseAll()">Collapse All</button>
+    <button (click)="goToSearch()">Back to Search</button>
+  </div>
 
-  <input
-    type="text"
-    [(ngModel)]="searchEAN"
-    placeholder="Search EAN"
-    class="search"
-  />
-</div>
-
-<div class="tree-view">
-  <app-hierarchy-node
-    *ngFor="let node of filteredHierarchy()"
-    [node]="node"
-  ></app-hierarchy-node>
+  @if (isSearchView) {
+    @if (searchResults.length) {
+      @for (result of searchResults; track result.id) {
+        <app-hierarchy-node [node]="result"></app-hierarchy-node>
+      }
+    } @else {
+      <p>No results found</p>
+    }
+  } @else {
+    @for (node of hierarchy; track node.id) {
+      <app-hierarchy-node [node]="node"></app-hierarchy-node>
+    }
+  }
 </div>

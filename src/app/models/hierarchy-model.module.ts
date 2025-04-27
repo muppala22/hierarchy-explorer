@@ -1,7 +1,7 @@
 export interface HierarchyNode {
   id: string;
   label: string;
-  type: 'G' | 'C' | 'F' | 'EAN';
+  type: 'Platform' | 'Seller' | 'Collection' | 'Item';
   children?: HierarchyNode[];
   expanded?: boolean;
 }

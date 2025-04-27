@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-hierarchy-node',
+  standalone: true,
   templateUrl: './hierarchy-node.component.html',
   imports: [
     CommonModule
