@@ -1,51 +1,29 @@
-# Hierarchy Explorer 🌐
+# Product Hierarchy Tool (Angular)
 
-A powerful Angular app that allows users to explore, search, and manage deeply nested hierarchical data — inspired by tools used in enterprise-level applications.
+A minimalist Angular app for managing product hierarchies with:
 
-## ✨ Features
+- Expand/collapse tree
+- SKU/label search
+- Local storage persistence
+- Modal-based edit/delete
+- JSON import/export
+- Built for dynamic deployment (supports SSR-ready Netlify setup)
 
-- 🧭 Expand/Collapse nested entities in real-time
-- 🔍 Search by EAN (or any property)
-- 🏷️ Visual icons for different node types (Global, Country, Facility, etc.)
-- 📁 Recursive rendering using Angular components
-- 🔁 Expand All / Collapse All / Refresh controls
-- 🌗 Responsive & clean UI with potential for dark mode
+### 🛠 Stack
+- Angular 17+
+- Standalone Components
+- LocalStorage
+- SSR-Ready (Netlify)
 
-## 🧠 Built With
+### 🚀 Features
+- Full CRUD interface for nested product nodes
+- Types: Brand → Category → Collection → Product
+- Search by SKU or name
+- Save/load as JSON
+- Responsive and minimal UI
 
-- [Angular](https://angular.io/)
-- TypeScript
-- SCSS
-- (Optional) Angular Material or TailwindCSS
-
-## 📚 Project Structure
-
-src/ ├── app/ │ ├── components/ │ │ ├── hierarchy-view/ │ │ └── hierarchy-node/ <-- recursive component │ ├── models/ │ │ └── hierarchy.model.ts │ ├── services/ │ │ └── hierarchy.service.ts (optional for backend) │ └── app.component.ts └── assets/
-
-## License
-
-MIT
-
-## 🛠 Setup
+### ▶ Run Locally
 
 ```bash
-git clone https://github.com/yourusername/hierarchy-explorer.git
-cd hierarchy-explorer
 npm install
 ng serve
-
-
-### 🚀 Project Roadmap
-
-| Phase | Feature | Status |
-|-------|---------|--------|
-| 1 | Basic hierarchy tree with mock data | ✅ |
-| 2 | Expand/collapse + recursive rendering | ✅ |
-| 3 | Expand All / Collapse All / Refresh buttons | ✅ |
-| 4 | Search by EAN / deep filtering | ✅ |
-| 5 | Clean UI with icons per level | ✅ |
-| 6 | Add backend/API or localStorage | 🔜 |
-| 7 | Drag-and-drop reordering | 🔜 |
-| 8 | Node editing & saving | 🔜 |
-| 9 | Responsive design & animations | 🔜 |
-
