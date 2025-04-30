@@ -1,11 +1,15 @@
-
+// app.component.ts
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavComponent } from './nav/nav.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: '<router-outlet></router-outlet>'
+  imports: [RouterOutlet, NavComponent],
+  template: `
+    <app-nav></app-nav>
+    <router-outlet></router-outlet>
+  `
 })
-export class AppComponent {}
+export class AppComponent { }

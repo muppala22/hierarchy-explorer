@@ -1,7 +1,11 @@
-
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HierarchyNode } from '../models/hierarchy-model.module';
+
+interface SearchResult {
+  path: string[];
+  node: HierarchyNode;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -87,27 +91,53 @@ export class HierarchyService {
     return of(this.hierarchyData);
   }
 
-  searchHierarchy(query: string): Observable<HierarchyNode[]> {
-    const results: HierarchyNode[] = [];
-    this.searchNode(this.hierarchyData, query.toLowerCase(), results);
-    return of(results);
+  searchHierarchy(query: string): Observable<HierarchyNode> {
+    const clonedHierarchy = this.cloneHierarchy(this.hierarchyData);
+    const searchTerm = query.toLowerCase();
+
+    // Reset all highlights and expand states
+    this.resetNodes(clonedHierarchy);
+
+    // Find and mark matching nodes
+    this.findAndMarkMatches(clonedHierarchy, searchTerm);
+
+    return of(clonedHierarchy);
   }
 
-  private searchNode(node: HierarchyNode, query: string, results: HierarchyNode[]): void {
-    // Check if current node matches
-    if (node.label.toLowerCase().includes(query)) {
-      // Clone the node to avoid modifying the original
-      const matchedNode = { ...node };
-      matchedNode.expanded = true;
-      results.push(matchedNode);
-      return; // Stop here to avoid duplicate results
+  private cloneHierarchy(node: HierarchyNode): HierarchyNode {
+    const clone = { ...node };
+    if (node.children) {
+      clone.children = node.children.map(child => this.cloneHierarchy(child));
+    }
+    return clone;
+  }
+
+  private resetNodes(node: HierarchyNode): void {
+    node.expanded = false;
+    node.highlighted = false;
+    if (node.children) {
+      node.children.forEach(child => this.resetNodes(child));
+    }
+  }
+
+  private findAndMarkMatches(node: HierarchyNode, searchTerm: string): boolean {
+    let hasMatch = node.label.toLowerCase().includes(searchTerm);
+
+    if (node.children) {
+      const childrenMatch = node.children.map(child =>
+        this.findAndMarkMatches(child, searchTerm)
+      ).some(match => match);
+
+      hasMatch = hasMatch || childrenMatch;
     }
 
-    // If no match found and node has children, search them
-    if (node.children) {
-      node.children.forEach(child => {
-        this.searchNode(child, query, results);
-      });
+    if (hasMatch) {
+      node.expanded = true;
+      if (node.label.toLowerCase().includes(searchTerm)) {
+        node.highlighted = true;
+      }
     }
+
+    return hasMatch;
   }
 }
