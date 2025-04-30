@@ -54,7 +54,7 @@ import { Router, ActivatedRoute } from '@angular/router';
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       padding: 1.5rem;
     }
-
+/*button*/
     .controls {
       display: flex;
       gap: 1rem;
