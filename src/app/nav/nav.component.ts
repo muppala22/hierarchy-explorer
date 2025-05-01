@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
     <nav class="nav-bar">
       <div class="nav-content">
         <div class="nav-brand">
-          <a routerLink="/search">Hierarchy Explorer</a>
+          <a routerLink="/search">Product Explorer</a>
         </div>
         <div class="nav-links">
           <a routerLink="/search"
