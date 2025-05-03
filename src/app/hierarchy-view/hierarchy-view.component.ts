@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HierarchyNodeComponent } from '../hierarchy-node/hierarchy-node.component';
 import { HierarchyService } from '../services/hierarchy.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ProductSharedService } from '../services/product-shared.service';
 
 @Component({
   selector: 'app-hierarchy-view',

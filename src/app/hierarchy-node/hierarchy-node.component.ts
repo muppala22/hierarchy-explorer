@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { HierarchyNode } from '../models/hierarchy-model.module';
 import {CommonModule, NgClass} from '@angular/common';
+import {ProductSharedService} from '../services/product-shared.service';
 
 // hierarchy-node/hierarchy-node.component.ts
 @Component({
@@ -62,11 +63,18 @@ import {CommonModule, NgClass} from '@angular/common';
 export class HierarchyNodeComponent {
   @Input() node!: HierarchyNode;
 
+  constructor(private sharedService: ProductSharedService) {}
+
+
   toggle() {
     this.node.expanded = !this.node.expanded;
   }
 
   protected get hasChildren(): boolean {
     return this.node.children !== undefined && this.node.children.length > 0;
+  }
+
+  selectNode(node: any) {
+    this.sharedService.selectNode(node);
   }
 }
