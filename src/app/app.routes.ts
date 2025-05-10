@@ -1,7 +1,7 @@
 
 import { Routes } from '@angular/router';
 import { SearchComponent } from './search/search.component';
-import { HierarchyViewComponent } from './hierarchy-view/hierarchy-view.component';
+import { ProductViewComponent } from './product-view/product-view.component';
 import {authGuard} from './guards/auth.guard';
 import {LoginComponent} from './login/login.component';
 import {LogoutComponent} from './logout/logout.component';
@@ -18,7 +18,7 @@ export const routes: Routes = [
   },
   {
     path: 'hierarchy',
-    component: HierarchyViewComponent,
+    component: ProductViewComponent,
     canActivate: [authGuard]
   },
   {

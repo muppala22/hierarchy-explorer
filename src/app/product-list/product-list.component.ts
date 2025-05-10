@@ -1,27 +1,28 @@
-import {Component, OnInit} from '@angular/core';
-import {ProductServiceService} from '../services/product-service.service';
-import {ProductSharedService} from '../services/product-shared.service';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ProductServiceService } from '../services/product-service.service';
+
+export interface Product {
+    id: number;
+    name: string;
+    price: number;
+    description?: string;
+}
 
 @Component({
   selector: 'app-product-list',
-  imports: [],
   templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.css'
+  standalone: true,
+  imports: [CommonModule, HttpClientModule]
 })
-export class ProductListComponent implements OnInit{
+export class ProductListComponent implements OnInit {
+  products: Product[] = [];
 
-  //products: any[] = [];
-  selectedNode: any;
-  constructor(private productService: ProductServiceService,
-              private sharedService: ProductSharedService) { }
-  ngOnInit() {
-   /* this.productService.getProducts().subscribe(data => {
-      this.products = data;
-    });*/
+  constructor(private productService: ProductServiceService) {}
 
-    this.sharedService.selectedNode$.subscribe(node => {
-      this.selectedNode = node;
-    })
+  ngOnInit(): void {
+    this.productService.getProducts()
+      .subscribe((products: Product[]) => this.products = products);
   }
-
 }

@@ -1,0 +1,18 @@
+<div class="node" [class.highlighted]="node.highlighted">
+  <div class="node-content" [attr.data-type]="node.type">
+    <span class="expand-button" (click)="toggle()" [class.invisible]="!hasChildren">
+      {{ node.expanded ? '▼' : '▶' }}
+    </span>
+    <span class="node-label" (click)="selectNode(node)">{{ node.name }}</span>
+  </div>
+  @if (hasChildren && node.expanded) {
+    <div class="children">
+      @for (child of node.children; track child.id) {
+        <app-product-node
+          [node]="child"
+          [isSearchResult]="isSearchResult">
+        </app-product-node>
+      }
+    </div>
+  }
+</div>

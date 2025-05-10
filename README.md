@@ -1,4 +1,4 @@
-# Product Hierarchy Tool (Angular)
+# Product Explorer Tool (Angular)
 
 A minimalist Angular app for managing product hierarchies with:
 

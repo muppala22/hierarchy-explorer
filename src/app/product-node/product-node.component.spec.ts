@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HierarchyViewComponent } from './hierarchy-view.component';
+import { ProductNodeComponent } from './product-node.component';
 
-describe('HierarchyViewComponent', () => {
-  let component: HierarchyViewComponent;
-  let fixture: ComponentFixture<HierarchyViewComponent>;
+describe('ProductNodeComponent', () => {
+  let component: ProductNodeComponent;
+  let fixture: ComponentFixture<ProductNodeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HierarchyViewComponent]
+      imports: [ProductNodeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HierarchyViewComponent);
+    fixture = TestBed.createComponent(ProductNodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

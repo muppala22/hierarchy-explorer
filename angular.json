@@ -1,10 +1,9 @@
-
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hierarchy-explorer": {
+    "product-explorer": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -14,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/hierarchy-explorer/browser",
+            "outputPath": "dist/product-explorer/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -60,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "hierarchy-explorer:build:production"
+              "buildTarget": "product-explorer:build:production"
             },
             "development": {
-              "buildTarget": "hierarchy-explorer:build:development"
+              "buildTarget": "product-explorer:build:development"
             }
           },
           "defaultConfiguration": "development"
