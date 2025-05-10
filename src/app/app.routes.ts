@@ -1,10 +1,10 @@
-
 import { Routes } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { ProductViewComponent } from './product-view/product-view.component';
 import {authGuard} from './guards/auth.guard';
 import {LoginComponent} from './login/login.component';
 import {LogoutComponent} from './logout/logout.component';
+import {ProductDetailsComponent} from './product-details/product-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +21,11 @@ export const routes: Routes = [
     component: ProductViewComponent,
     canActivate: [authGuard]
   },
+  {
+  path: 'product/:id',
+  component: ProductDetailsComponent,
+  canActivate: [authGuard]
+},
   {
     path: '**',
     redirectTo: 'search'

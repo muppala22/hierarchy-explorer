@@ -1,142 +1,67 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../models/product-model.module';
-import { CommonModule } from '@angular/common';
-import { ProductNodeComponent } from '../product-node/product-node.component';
-import { ProductService } from '../services/product.service';
-import { Router, ActivatedRoute } from '@angular/router';
-
+import {finalize, Observable} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {Product} from '../models/product-model.module';
+import {LoadingService} from '../services/loading-service.service';
+import {ErrorHandlingService} from '../services/ErrorHandling';
+import {AsyncPipe, CommonModule, NgForOf, NgIf} from '@angular/common';
 @Component({
   selector: 'app-product-view',
-  standalone: true,
-  imports: [CommonModule, ProductNodeComponent],
-  templateUrl: './product-view.component.html',
-  styleUrls: ['./product-view.component.scss']
+  imports: [
+    NgIf,
+    AsyncPipe,
+    NgForOf
+  ],
+  template: `
+    <div *ngIf="loading$ | async">Loading...</div>
+    <div *ngIf="!(loading$ | async) && product.length">
+      <div *ngFor="let item of product">
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.description }}</p>
+        <p>Price: {{ item.price }} {{ item.currency }}</p>
+        <p>In Stock: {{ item.inStock }}</p>
+        <p>Rating: {{ item.rating }} ({{ item.reviews }} reviews)</p>
+      </div>
+    </div>
+  `
 })
-
-
-// product-view.component.ts
 export class ProductViewComponent implements OnInit {
-  product: Product[] = [];
-  searchQuery: string = '';
-  isSearchView: boolean = false;  // Add this property
-  isSearchResult: boolean = false;
-  searchResults: Product[] = [];  // Add this property
+  get productService(): any {
+    return this._productService;
+  }
 
+  set productService(value: any) {
+    this._productService = value;
+  }
+  loading$: Observable<boolean>;
+  product: Product[] = [];
+  private _productService: any;
 
   constructor(
-    private route: ActivatedRoute,
-    private productService: ProductService,
-    private router: Router
+    private loadingService: LoadingService,
+    private errorHandling: ErrorHandlingService
   ) {
+    this.loading$ = this.loadingService.isLoading$;
   }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const searchQuery = params['search'];
-      if (searchQuery) {
-        this.searchQuery = searchQuery;
-        this.isSearchView = true;
-        this.productService.searchHierarchy(searchQuery)
-          .subscribe(data => {
-            this.product = [data];
-            // Keep the full hierarchy but filtered to show only relevant branches
-            this.searchResults = this.extractSearchResults([data]).filter(Boolean);
-          });
-      } else {
-        this.searchQuery = '';
-        this.isSearchView = false;
-        this.productService.getHierarchyData()
-          .subscribe(data => {
-            this.product = [data];
-            this.searchResults = [];
-          });
-      }
-    });
-  }
 
-  public expandAll(): void {
-    if (this.isSearchView) {
-      this.toggleAll(this.searchResults, true);
-    } else {
-      this.toggleAll(this.product, true);
+
+  ngOnInit(): void {
+        throw new Error('Method not implemented.');
     }
-  }
 
-  public collapseAll(): void {
-    if (this.isSearchView) {
-      if (this.searchQuery) {
-        this.collapseNonHighlighted(this.searchResults);
-      } else {
-        this.toggleAll(this.searchResults, false);
-      }
-    } else {
-      this.toggleAll(this.product, false);
-    }
-  }
-
-  public toggleAll(nodes: Product[], expanded: boolean): void {
-    nodes.forEach(node => {
-      node.expanded = expanded;
-      if (node.children?.length) {
-        this.toggleAll(node.children, expanded);
-      }
-    });
-  }
-
-  public collapseNonHighlighted(nodes: Product[]): void {
-    nodes.forEach(node => {
-      // Keep expanded if node is highlighted or has highlighted descendants
-      const shouldKeepExpanded = node.highlighted ||
-        this.hasHighlightedDescendant(node);
-
-      node.expanded = shouldKeepExpanded;
-
-      if (node.children?.length) {
-        this.collapseNonHighlighted(node.children);
-      }
-    });
-  }
-
-  private hasHighlightedDescendant(node: Product): boolean {
-    if (!node.children) return false;
-
-    return node.children.some(child =>
-      child.highlighted || this.hasHighlightedDescendant(child)
-    );
-  }
-
-  public goToSearch(): void {
-    this.router.navigate(['/search']);
-  }
-
-  private extractSearchResults(nodes: Product[]): Product[] {
-    const results: Product[] = [];
-
-    for (const node of nodes) {
-      // Create a new node with all required properties
-      const newNode: Product = {
-        id: node.id,
-        name: node.name,
-        description: node.description,
-        price: node.price,
-        imageUrl: node.imageUrl,
-        type: node.type,
-        expanded: node.expanded,
-        highlighted: node.highlighted
-      };
-
-      if (node.children?.length) {
-        const childResults = this.extractSearchResults(node.children);
-        if (childResults.length > 0 || node.highlighted) {
-          newNode.children = childResults;
-          newNode.expanded = true;
-          results.push(newNode);
+  loadData() {
+    this.loadingService.show();
+    this._productService.getHierarchyData()
+      .pipe(
+        finalize(() => this.loadingService.hide())
+      )
+      .subscribe({
+        next: (data: Product) => {
+          this.product = [data];
+        },
+        error: (error: any) => {
+          this.errorHandling.handleError(error);
         }
-      } else if (node.highlighted) {
-        results.push(newNode);
-      }
-    }
-
-    return results;
+      });
   }
 }

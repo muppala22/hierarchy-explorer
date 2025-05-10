@@ -8,4 +8,10 @@ export interface Product {
   expanded?: boolean;
   highlighted?: boolean;  // Add this property
   children?: Product[];
+  currency: string;
+  inStock: boolean;
+  specifications: Record<string, string>;
+  rating: number;
+  reviews: number;
+
 }

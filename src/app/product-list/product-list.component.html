@@ -1,6 +1,43 @@
-<div *ngFor="let product of products">
-  <h3>{{product.name}}</h3>
-  <p>{{product.description}}</p>
-  <p>Price: ${{product.price}}</p>
-  <img [src]="product.imageUrl" alt="{{product.name}}">
+<div class="controls">
+  <div class="filters">
+    <mat-form-field>
+      <mat-label>Price Range</mat-label>
+      <mat-select [(ngModel)]="selectedPriceRange">
+        <mat-option value="0-100">$0 - $100</mat-option>
+        <mat-option value="100-500">$100 - $500</mat-option>
+        <mat-option value="500+">$500+</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Sort By</mat-label>
+      <mat-select [(ngModel)]="sortBy" (selectionChange)="sortProducts()">
+        <mat-option value="price-asc">Price: Low to High</mat-option>
+        <mat-option value="price-desc">Price: High to Low</mat-option>
+        <mat-option value="rating">Rating</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="product-grid">
+  <mat-card *ngFor="let product of filteredProducts" class="product-card">
+    <img mat-card-image [src]="product.imageUrl" [alt]="product.name">
+    <mat-card-content>
+      <h3>{{product.name}}</h3>
+      <p>{{product.description}}</p>
+      <div class="price">{{product.price | currency:product.currency}}</div>
+      <div class="rating">
+        <mat-icon *ngFor="let star of [1,2,3,4,5]"
+                  [class.filled]="star <= product.rating">star</mat-icon>
+        <span>({{product.reviews}} reviews)</span>
+      </div>
+      <div class="stock-status" [class.in-stock]="product.inStock">
+        {{product.inStock ? 'In Stock' : 'Out of Stock'}}
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="viewDetails(product)">View Details</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

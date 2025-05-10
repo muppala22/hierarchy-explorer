@@ -35,7 +35,12 @@ export class ProductService {
                 description: 'Item',
                 price: 0,
                 imageUrl: '',
-                type: ''
+                type: '',
+                currency: '',
+                inStock: false,
+                specifications: {},
+                rating: 0,
+                reviews: 0
               },
               {
                 id: 'I2',
@@ -43,12 +48,22 @@ export class ProductService {
                 description: 'Item',
                 price: 0,
                 imageUrl: '',
-                type: ''
+                type: '',
+                currency: '',
+                inStock: false,
+                specifications: {},
+                rating: 0,
+                reviews: 0
               }
             ],
             price: 0,
             imageUrl: '',
-            type: ''
+            type: '',
+            currency: '',
+            inStock: false,
+            specifications: {},
+            rating: 0,
+            reviews: 0
           },
           {
             id: 'C2',
@@ -61,7 +76,12 @@ export class ProductService {
                 description: 'Item',
                 price: 0,
                 imageUrl: '',
-                type: ''
+                type: '',
+                currency: '',
+                inStock: false,
+                specifications: {},
+                rating: 0,
+                reviews: 0
               },
               {
                 id: 'I4',
@@ -69,17 +89,32 @@ export class ProductService {
                 description: 'Item',
                 price: 0,
                 imageUrl: '',
-                type: ''
+                type: '',
+                currency: '',
+                inStock: false,
+                specifications: {},
+                rating: 0,
+                reviews: 0
               }
             ],
             price: 0,
             imageUrl: '',
-            type: ''
+            type: '',
+            currency: '',
+            inStock: false,
+            specifications: {},
+            rating: 0,
+            reviews: 0
           }
         ],
         price: 0,
         imageUrl: '',
-        type: ''
+        type: '',
+        currency: '',
+        inStock: false,
+        specifications: {},
+        rating: 0,
+        reviews: 0
       },
       {
         id: 'S2',
@@ -97,7 +132,12 @@ export class ProductService {
                 description: 'Item',
                 price: 0,
                 imageUrl: '',
-                type: ''
+                type: '',
+                currency: '',
+                inStock: false,
+                specifications: {},
+                rating: 0,
+                reviews: 0
               },
               {
                 id: 'I6',
@@ -105,22 +145,42 @@ export class ProductService {
                 description: 'Item',
                 price: 0,
                 imageUrl: '',
-                type: ''
+                type: '',
+                currency: '',
+                inStock: false,
+                specifications: {},
+                rating: 0,
+                reviews: 0
               }
             ],
             price: 0,
             imageUrl: '',
-            type: ''
+            type: '',
+            currency: '',
+            inStock: false,
+            specifications: {},
+            rating: 0,
+            reviews: 0
           }
         ],
         price: 0,
         imageUrl: '',
-        type: ''
+        type: '',
+        currency: '',
+        inStock: false,
+        specifications: {},
+        rating: 0,
+        reviews: 0
       }
     ],
     price: 0,
     imageUrl: '',
-    type: ''
+    type: '',
+    currency: '',
+    inStock: false,
+    specifications: {},
+    rating: 0,
+    reviews: 0
   };
 
   getHierarchyData(): Observable<Product> {
